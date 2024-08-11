@@ -9,10 +9,8 @@ def is_admin():
         return False
 
 if is_admin():
-    # Your code that requires admin privileges goes here
     print("Running as admin!")
 else:
-    # Re-run the program with admin privileges
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, " ".join(sys.argv), None, 1
     )
