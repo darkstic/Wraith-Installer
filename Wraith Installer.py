@@ -9,8 +9,10 @@ def is_admin():
         return False
 
 if is_admin():
+    # Your code that requires admin privileges goes here
     print("Running as admin!")
 else:
+    # Re-run the program with admin privileges
     ctypes.windll.shell32.ShellExecuteW(
         None, "runas", sys.executable, " ".join(sys.argv), None, 1
     )
@@ -260,6 +262,14 @@ Press 'Enter' to proceed with installing {soft}...
 
 print("Launching installer...")
 
-install_package(final_path)
+if is_admin():
+    install_package(final_path)
+    print("Running as admin!")
+else:
+    ctypes.windll.shell32.ShellExecuteW(
+        None, "runas", sys.executable, " ".join(sys.argv), None, 1
+    )
+    install_package(final_path)
+
 
 print("Closing Wraith Installer")
